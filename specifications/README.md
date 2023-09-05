@@ -1,13 +1,16 @@
-# Documentazione Discord Bot 
+# Documentazione CASTORO discord bot
 
 ## Commands
 
-1. Librerie standard
-    - 
+    1. cmd
+        - cmd
 
 ## Features
 
-1. 
-    - 
+    1. 
+        - 
 
-## Fu
+## Functions
+
+    1. 
+        - 
