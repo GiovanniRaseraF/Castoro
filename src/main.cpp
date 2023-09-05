@@ -17,6 +17,8 @@ Links:
 #include <future>
 
 #include "castoro.hpp"
+#include "commands/ping.hpp"
+#include "commands/new.hpp"
 
 namespace proc = boost::process;
 using namespace std::literals;
@@ -42,17 +44,8 @@ int main(){
     dpp::cluster bot(key);
 
     // commands
-    mycastoro.bind_command("ping", "Fai un test di ping", [&](cluster& bot, slash_command& event){
-        auto fu = std::async(std::launch::async, [](){
-            std::this_thread::sleep_for(2s);
-
-            return "test di sottoprocesso max 2 secondi";
-        });
-        fu.wait();
-        auto ret = fu.get();
-
-        event.reply(ret);
-    });
+    mycastoro.advanced_bind<ping>();
+    mycastoro.advanced_bind<new_story>();
  
     bot.on_log(dpp::utility::cout_logger());
 

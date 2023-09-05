@@ -85,6 +85,14 @@ class castoro {
             event.reply("No handle per il comando");
     }
 
+    // TODO: @MancioLollo: documentation
+    /*
+    */
+    template<class Class>
+    void advanced_bind(){
+        bind_command(Class::command, Class::description, Class::on_event);
+    };
+
     // advertise commands
     // TODO: @MancioLollo: documentation
     /*
