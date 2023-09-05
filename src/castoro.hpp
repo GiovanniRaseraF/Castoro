@@ -59,26 +59,30 @@ class castoro {
     */
     void handle(cluster& bot, slash_command& event){
         std::string command_string = event.command.get_command_name();
-
+        bool last_reply = true;
         // check command available
         auto command_func = slash_commands_func.find(command_string);
         if(command_func != slash_commands_func.end()){
             try{
                 // execute function binding 
                 std::get<1>(command_func->second)(bot, event);
-
+                last_reply = false;
             }catch(dpp::exception &ex){
                 std::cerr << ex.what() << std::endl;
 
-                if(castoro::log == ALL)
+                if(castoro::log == ALL){
                     event.reply("@cetriolinogio @manciolollo / errore : " + std::string(ex.what()));
+                    last_reply = false;
+                }
             }
         }else{
             std::string response = "Il comando che hai inserito non esiste.";
+            last_reply = false;
             event.reply(response);
         }
-        
-        event.reply("No handle per il comando");
+
+        if(last_reply) 
+            event.reply("No handle per il comando");
     }
 
     // advertise commands
