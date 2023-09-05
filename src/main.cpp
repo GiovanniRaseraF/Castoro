@@ -53,6 +53,10 @@ int main(){
         mycastoro.handle(bot, event);
     });
 
+    bot.on_form_submit([&](const dpp::form_submit_t & event) {
+        mycastoro.on_form_handle(bot, event);
+    });
+
     bot.on_ready([&](const dpp::ready_t & event) {
         mycastoro.advertise(bot);
     });

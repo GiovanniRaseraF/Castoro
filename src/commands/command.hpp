@@ -25,5 +25,9 @@ using namespace std::literals;
 
 // typedefs
 typedef const dpp::slashcommand_t slash_command;
+typedef const dpp::form_submit_t form_submit;
 typedef dpp::cluster cluster;
 typedef std::function<void(cluster&, slash_command&)> slash_event_func;
+typedef std::function<void(cluster&, form_submit&)> form_event_func;
+
+#define MAX_DPP_TEXT_LEN 4000

@@ -10,20 +10,7 @@ Links:
 
 #pragma once
 
-#include <dpp/dpp.h>
-#include <boost/algorithm/string.hpp>
-
-#include <vector>
-#include <string>
-#include <functional>
-#include <map>
-#include <tuple>
-#include <set>
-
-// typedefs
-typedef const dpp::slashcommand_t slash_command;
-typedef dpp::cluster cluster;
-typedef std::function<void(cluster&, slash_command&)> slash_event_func;
+#include "commands/command.hpp"
 
 enum logging{
     ALL,
@@ -40,20 +27,34 @@ class castoro {
         >
     > slash_commands_func;
 
+    // form handle bind
+    std::map<std::string,   // slash command
+        std::tuple<
+            std::string,        // none
+            form_event_func    // execute on_form
+        >
+    > form_events_func;
+
     public:    
     const static enum logging log = logging::ALL;
     castoro() = default;
 
+    private:
     // bind new command
     // TODO: @MancioLollo: documentation
     /*
     */
-    void bind_command(std::string command, std::string description, slash_event_func func){
+    void bind_command(std::string command, std::string description, slash_event_func func, form_event_func form_func){
         // move func and description into slash_commands_func
         std::tuple<std::string, slash_event_func> desc_func{description, std::move(func)};
         slash_commands_func[command] = std::move(desc_func);
+        
+        // add form func
+        std::tuple<std::string, form_event_func> desc_form_func{"", std::move(form_func)};
+        form_events_func[command] = std::move(desc_form_func);
     }
 
+    public:
     // TODO: @MancioLollo: documentation
     /*
     */
@@ -90,8 +91,17 @@ class castoro {
     */
     template<class Class>
     void advanced_bind(){
-        bind_command(Class::command, Class::description, Class::on_event);
-    };
+        bind_command(Class::command, Class::description, Class::on_event, Class::on_form);
+    }
+
+    // TODO: @MancioLollo: documentation
+    /*
+    */
+    void on_form_handle(cluster &bot, form_submit& event){
+        for(auto &form_handler : form_events_func){
+            std::get<1>(form_handler.second)(bot, event);
+        }
+    }
 
     // advertise commands
     // TODO: @MancioLollo: documentation

@@ -31,6 +31,10 @@ struct ping /*: public command*/ {
 
         event.reply(ret);
     }
+
+    static void on_form(cluster &bot, form_submit& event){ 
+        std::cerr << "non ci sono form per ping" << std::endl;
+    }
 };
 
 // init
