@@ -14,10 +14,12 @@ Links:
 
 #include <fstream>
 #include <iostream>
+#include <future>
 
 #include "castoro.hpp"
 
 namespace proc = boost::process;
+using namespace std::literals;
 
 // castoro
 castoro mycastoro;
@@ -40,16 +42,16 @@ int main(){
     dpp::cluster bot(key);
 
     // commands
-    mycastoro.bind_command("ciao", "Fai un test di ping", [&](cluster& bot, slash_command& event){
-        system("ls > ./sub.key");
-        std::ifstream file{"./sub.key"};
-        std::string message;
-        
-        for(std::string line; std::getline(file, line);){
-            message+=line+"\n";
-        }
+    mycastoro.bind_command("ping", "Fai un test di ping", [&](cluster& bot, slash_command& event){
+        auto fu = std::async(std::launch::async, [](){
+            std::this_thread::sleep_for(2s);
 
-        event.reply(message);
+            return "test di sottoprocesso max 2 secondi";
+        });
+        fu.wait();
+        auto ret = fu.get();
+
+        event.reply(ret);
     });
  
     bot.on_log(dpp::utility::cout_logger());

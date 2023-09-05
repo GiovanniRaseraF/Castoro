@@ -67,7 +67,7 @@ class castoro {
                 // execute function binding 
                 std::get<1>(command_func->second)(bot, event);
 
-            }catch(std::exception &ex){
+            }catch(dpp::exception &ex){
                 std::cerr << ex.what() << std::endl;
 
                 if(castoro::log == ALL)
