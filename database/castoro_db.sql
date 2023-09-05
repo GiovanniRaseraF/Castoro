@@ -47,8 +47,8 @@ DROP TABLE IF EXISTS `mydb`.`stories` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`stories` (
   `id_story` INT NOT NULL AUTO_INCREMENT,
-  `story_copy1` VARCHAR(500) NOT NULL,
-  `title` LONGTEXT NOT NULL,
+  `title` VARCHAR(500) NOT NULL,
+  `story` LONGTEXT NOT NULL,
   `story_date` DATE NOT NULL,
   `create_time` TIMESTAMP NOT NULL,
   `year` YEAR NULL,
