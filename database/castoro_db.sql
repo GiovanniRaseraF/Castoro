@@ -8,8 +8,6 @@ DROP SCHEMA IF EXISTS castorodb ;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS castorodb ;
 
-SET search_path to DB;
-
 -- -----------------------------------------------------
 -- Table user
 -- -----------------------------------------------------
@@ -19,6 +17,7 @@ CREATE TABLE IF NOT EXISTS castorodb.user (
   id_user SERIAL NOT NULL,
   nome VARCHAR(16) NOT NULL,
   cognome VARCHAR(16) NOT NULL,
+  discord_name VARCHAR(20) NOT NULL,
   create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   lista_soprannomi VARCHAR(500) NULL,
   extend_text VARCHAR(45) NULL,
@@ -43,7 +42,7 @@ CREATE TABLE IF NOT EXISTS castorodb.stories (
   title VARCHAR(500) NOT NULL,
   story_date DATE NOT NULL,
   story TEXT NOT NULL,
-  create_time TIMESTAMP NOT NULL,
+  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   tag VARCHAR(100) NULL,
   PRIMARY KEY (id_story));
 
@@ -67,3 +66,4 @@ CREATE TABLE IF NOT EXISTS castorodb.user_has_stories (
     REFERENCES castorodb.stories(id_story)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
