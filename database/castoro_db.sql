@@ -8,8 +8,6 @@ DROP SCHEMA IF EXISTS castorodb ;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS castorodb ;
 
-\c castorodb;
-
 SET search_path to DB;
 
 -- -----------------------------------------------------
