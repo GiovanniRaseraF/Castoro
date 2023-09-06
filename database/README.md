@@ -1,4 +1,4 @@
-# Documentazione CASTORO database
+# CASTORO Database Design Document
 
 ## PostgreSQL
 
@@ -16,4 +16,6 @@
     3. user_has_stories (nxm)
         - 
 
-### other constraints
+## Architecture and Specifications
+
+### other constraints and implementation choices (db)

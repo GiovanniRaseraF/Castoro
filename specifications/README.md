@@ -2,8 +2,8 @@
 
 ## Commands
 
-    1. cmd
-        - cmd
+    1. file word command list
+        - 
 
 ## Features
 
@@ -14,3 +14,5 @@
 
     1. 
         - 
+
+### other constraints and implementation choices (technical)
