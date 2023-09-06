@@ -1,16 +1,23 @@
 -- -----------------------------------------------------
--- Database castorodb
+-- Schema castorodb
 -- -----------------------------------------------------
-DROP database if exists castorodb;
-create database castorodb;
+DROP SCHEMA IF EXISTS castorodb ;
+
+-- -----------------------------------------------------
+-- Schema castorodb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS castorodb ;
+
 \c castorodb;
+
+SET search_path to DB;
 
 -- -----------------------------------------------------
 -- Table user
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS castorodb.user;
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS castorodb.user (
   id_user SERIAL NOT NULL,
   nome VARCHAR(16) NOT NULL,
   cognome VARCHAR(16) NOT NULL,
@@ -31,9 +38,9 @@ CREATE TABLE IF NOT EXISTS user (
 -- -----------------------------------------------------
 -- Table stories
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS stories;
+DROP TABLE IF EXISTS castorodb.stories;
 
-CREATE TABLE IF NOT EXISTS stories (
+CREATE TABLE IF NOT EXISTS castorodb.stories (
   id_story SERIAL NOT NULL,
   title VARCHAR(500) NOT NULL,
   story_date DATE NOT NULL,
@@ -46,19 +53,19 @@ CREATE TABLE IF NOT EXISTS stories (
 -- -----------------------------------------------------
 -- Table user_has_stories
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS user_has_stories;
+DROP TABLE IF EXISTS castorodb.user_has_stories;
 
-CREATE TABLE IF NOT EXISTS user_has_stories (
+CREATE TABLE IF NOT EXISTS castorodb.user_has_stories (
   user_id_user INT NOT NULL,
   stories_id_story INT NOT NULL,
   PRIMARY KEY (user_id_user, stories_id_story),
   CONSTRAINT fk_user_has_stories_user
     FOREIGN KEY (user_id_user)
-    REFERENCES user(id_user)
+    REFERENCES castorodb.user(id_user)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_user_has_stories_stories1
     FOREIGN KEY (stories_id_story)
-    REFERENCES stories(id_story)
+    REFERENCES castorodb.stories(id_story)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
