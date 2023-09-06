@@ -3,6 +3,7 @@
 -- -----------------------------------------------------
 DROP database if exists castorodb;
 create database castorodb;
+\c castorodb;
 
 -- -----------------------------------------------------
 -- Table user
@@ -36,10 +37,8 @@ CREATE TABLE IF NOT EXISTS stories (
   id_story SERIAL NOT NULL,
   title VARCHAR(500) NOT NULL,
   story_date DATE NOT NULL,
-  story LONGTEXT NOT NULL,
+  story TEXT NOT NULL,
   create_time TIMESTAMP NOT NULL,
-  year YEAR NULL,
-  month INT NULL,
   tag VARCHAR(100) NULL,
   PRIMARY KEY (id_story));
 
