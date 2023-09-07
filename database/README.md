@@ -2,20 +2,28 @@
 
 ## PostgreSQL
 
-    1. 
+    1. Data Definition
+        - 
+    
+    2. Data Manipulation
+        - 
+    
+    3. Query
         - 
 
 ## E/R Diagram
 
-    1. user
+    1. bro
         - 
 
-    2. stories
+    2. story
         - 
     
-    3. user_has_stories (nxm)
+    3. tell (nxm relation)
         - 
 
 ## Architecture and Specifications
 
+
 ### other constraints and implementation choices (db)
+

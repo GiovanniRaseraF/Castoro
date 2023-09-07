@@ -7,12 +7,30 @@
 
 ## Features
 
-    1. 
+    1. future implementations
         - 
 
-## Functions
+## Environment
 
-    1. 
+    1. makefile
         - 
+    
+    2. server 
+        - 
+    
+    3. 
+
+## Source code
+    1. castoro.hpp
+        - 
+    
+    2. command.hpp
+        - 
+    
+    3. main.cpp
+        - 
+
+## Doxygen
 
 ### other constraints and implementation choices (technical)
+
