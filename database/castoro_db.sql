@@ -1,23 +1,35 @@
--- -----------------------------------------------------
--- Schema castorodb
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS castorodb ;
+-- Authors: 
+-- + Giovanni Rasera : c++ code
+-- + Lorenzo Mancini : database and specifications
+
+-- Links:
+-- + https://github.com/GiovanniRaseraF
+-- + https://github.com/MancioLollo
 
 -- -----------------------------------------------------
--- Schema castorodb
+-- Database castorodb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS castorodb ;
+DROP DATABASE IF EXISTS castorodb;
 
 -- -----------------------------------------------------
--- Table user
+-- Database castorodb
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS castorodb.user;
+CREATE DATABASE IF NOT EXISTS castorodb;
 
-CREATE TABLE IF NOT EXISTS castorodb.user (
-  id_user SERIAL NOT NULL,
+-- -----------------------------------------------------
+-- Set castorodb
+-- -----------------------------------------------------
+SET search_path TO castorodb;
+
+-- -----------------------------------------------------
+-- Table bro
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS bro;
+
+CREATE TABLE IF NOT EXISTS bro (
+  id_bro SERIAL NOT NULL,
   nome VARCHAR(16) NOT NULL,
   cognome VARCHAR(16) NOT NULL,
-  discord_name VARCHAR(20) NOT NULL,
   create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   lista_soprannomi VARCHAR(500) NULL,
   extend_text VARCHAR(45) NULL,
@@ -29,41 +41,38 @@ CREATE TABLE IF NOT EXISTS castorodb.user (
   extend_date TIMESTAMP NULL,
   extend_date_copy1 TIMESTAMP NULL,
   extend_date_copy2 TIMESTAMP NULL,
-  PRIMARY KEY (id_user));
-
+  PRIMARY KEY (id_bro));
 
 -- -----------------------------------------------------
--- Table stories
+-- Table story
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS castorodb.stories;
+DROP TABLE IF EXISTS story;
 
-CREATE TABLE IF NOT EXISTS castorodb.stories (
+CREATE TABLE IF NOT EXISTS story (
   id_story SERIAL NOT NULL,
   title VARCHAR(500) NOT NULL,
   story_date DATE NOT NULL,
   story TEXT NOT NULL,
-  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  create_time TIMESTAMP NOT NULL,
   tag VARCHAR(100) NULL,
   PRIMARY KEY (id_story));
 
-
 -- -----------------------------------------------------
--- Table user_has_stories
+-- Table tell
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS castorodb.user_has_stories;
+DROP TABLE IF EXISTS tell;
 
-CREATE TABLE IF NOT EXISTS castorodb.user_has_stories (
-  user_id_user INT NOT NULL,
-  stories_id_story INT NOT NULL,
-  PRIMARY KEY (user_id_user, stories_id_story),
-  CONSTRAINT fk_user_has_stories_user
-    FOREIGN KEY (user_id_user)
-    REFERENCES castorodb.user(id_user)
+CREATE TABLE IF NOT EXISTS tell (
+  bro INT NOT NULL,
+  story INT NOT NULL,
+  PRIMARY KEY (bro, story),
+  CONSTRAINT fk_bro_tell_story
+    FOREIGN KEY (bro)
+    REFERENCES bro(id_bro)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_user_has_stories_stories1
-    FOREIGN KEY (stories_id_story)
-    REFERENCES castorodb.stories(id_story)
+  CONSTRAINT fk_story_tell_bro
+    FOREIGN KEY (story)
+    REFERENCES story(id_story)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
