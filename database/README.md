@@ -3,27 +3,41 @@
 ## PostgreSQL
 
     1. Data Definition
-        - 
-    
+        - bro
+            - motivation, dependencies, ...
+
+        - story
+            - motivation, dependencies, ...
+
+        -tell
+            - motivation, dependencies, ...
+
     2. Data Manipulation
-        - 
+        - operations
     
-    3. Query
-        - 
+    3. Data Control
+        - permissions
+    
+    4. Query
+        - main queries
+    
+    5. Transaction Control
+        - scope of use
 
 ## E/R Diagram
 
     1. bro
-        - 
+        - relations and attributes
 
     2. story
-        - 
+        - relations and attributes
     
-    3. tell (nxm relation)
-        - 
+    3. tell
+        - (nxm)
 
-## Architecture and Specifications
+## Architectural Specifications
 
+    1. SO, version, supporting software, server, ...
 
 ### other constraints and implementation choices (db)
 
