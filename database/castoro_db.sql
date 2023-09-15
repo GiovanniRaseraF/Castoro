@@ -14,7 +14,7 @@ DROP DATABASE IF EXISTS castorodb;
 -- -----------------------------------------------------
 -- Database castorodb
 -- -----------------------------------------------------
-CREATE DATABASE IF NOT EXISTS castorodb;
+CREATE DATABASE castorodb;
 
 -- -----------------------------------------------------
 -- Set castorodb
@@ -24,7 +24,7 @@ SET search_path TO castorodb;
 -- -----------------------------------------------------
 -- Table bro
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS bro;
+DROP TABLE IF EXISTS bro CASCADE;
 
 CREATE TABLE IF NOT EXISTS bro (
   id_bro SERIAL NOT NULL,
@@ -46,13 +46,13 @@ CREATE TABLE IF NOT EXISTS bro (
 -- -----------------------------------------------------
 -- Table story
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS story;
+DROP TABLE IF EXISTS story CASCADE;
 
 CREATE TABLE IF NOT EXISTS story (
   id_story SERIAL NOT NULL,
   title VARCHAR(500) NOT NULL,
   story_date DATE NOT NULL,
-  story TEXT NOT NULL,
+  story_text TEXT NOT NULL,
   create_time TIMESTAMP NOT NULL,
   tag VARCHAR(100) NULL,
   PRIMARY KEY (id_story));
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS story (
 -- -----------------------------------------------------
 -- Table tell
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS tell;
+DROP TABLE IF EXISTS tell CASCADE;
 
 CREATE TABLE IF NOT EXISTS tell (
   bro INT NOT NULL,
@@ -69,10 +69,10 @@ CREATE TABLE IF NOT EXISTS tell (
   CONSTRAINT fk_bro_tell_story
     FOREIGN KEY (bro)
     REFERENCES bro(id_bro)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT fk_story_tell_bro
     FOREIGN KEY (story)
     REFERENCES story(id_story)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
