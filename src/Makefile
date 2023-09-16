@@ -16,6 +16,9 @@ all:
 	\
 	-lboost_filesystem -lboost_system \
 	-lboost_thread \
+	-lboost_program_options \
+	\
+	-lpqxx -lpq \
 	-o ../build/castoro.out && \
 	echo Compiled castoro ! && \
-	../build/castoro.out
+	../build/castoro.out -h -k ~/Desktop/privatekey.key

@@ -11,6 +11,11 @@ Links:
 #include <dpp/dpp.h>
 
 #include <boost/process.hpp>
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/parsers.hpp>
+#include <boost/program_options/variables_map.hpp>
+#include <boost/tokenizer.hpp>
+#include <boost/token_functions.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -22,23 +27,57 @@ Links:
 
 namespace proc = boost::process;
 using namespace std::literals;
+using namespace boost;
+using namespace boost::program_options;
 
 // castoro
 castoro mycastoro;
 
-int main(){
-    // load key
-    std::ifstream keyfile{"../privatekey.key"};
-    
-    if(!keyfile.is_open()){
-        std::cerr << "file not presente" << std::endl;
-        
-        return 1;
+int main(int argc , char **argv){
+    // creating menus
+    options_description desc("Castoro Bot");
+
+    // add command line options
+    desc.add_options()
+        ("help,h", "Print all available commands.")
+        ("key,k", value<std::string>(), "File name where api key is stored.");
+
+    // parse aguments
+    variables_map vm;
+    try
+    {
+        store(command_line_parser(
+        argc, argv).options(desc).run(), vm);
+        notify(vm);
+    } catch (std::exception &e)
+    {
+        std::cout << std::endl << e.what() << std::endl;
+        std::cout << desc << std::endl;
+    }
+    // help
+    if(vm.count("help")){
+        std::cout << desc << std::endl;
     }
 
-    // estract key
+    // insert key
     std::string key;
-    std::getline(keyfile, key);
+    if(vm.count("key")){
+        // load key
+        std::ifstream keyfile{vm["key"].as<std::string>()};
+    
+        if(!keyfile.is_open()){
+            std::cerr << "file not presente" << std::endl;
+        
+            return 1;
+        }
+
+        // estract key
+        std::getline(keyfile, key);
+    }else{
+        std::cerr << "No key specified" << std::endl;
+        std::cerr << "Exiting !" << std::endl;
+        exit(1);
+    }
 
     // init bot
     dpp::cluster bot(key);
