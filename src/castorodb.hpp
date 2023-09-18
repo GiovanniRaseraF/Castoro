@@ -28,15 +28,15 @@ class castorodb {
     static std::vector<std::string> list_bros(){
         std::vector<std::string> ret{};
 
-        pqxx::connection c{""};
-        pqxx::work txn{c};
+        // pqxx::connection c{""};
+        // pqxx::work txn{c};
 
-        for(auto row : txn.exec("SELECT nome FROM bro")){
-            std::string nome = (row["nome"].as<std::string>());
+        // for(auto row : txn.exec("SELECT nome FROM bro")){
+        //     std::string nome = (row["nome"].as<std::string>());
 
-            ret.push_back(nome);
-            std::cout << nome << std::endl;
-        }
+        //     ret.push_back(nome);
+        //     std::cout << nome << std::endl;
+        // }
 
         return ret;
     }
