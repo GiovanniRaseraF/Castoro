@@ -24,6 +24,7 @@ Links:
 #include "castoro.hpp"
 #include "commands/ping.hpp"
 #include "commands/new.hpp"
+#include "commands/getbros.hpp"
 
 namespace proc = boost::process;
 using namespace std::literals;
@@ -83,8 +84,9 @@ int main(int argc , char **argv){
     dpp::cluster bot(key);
 
     // commands
-    mycastoro.advanced_bind<ping>();
+    mycastoro.advanced_bind<getbros>();
     mycastoro.advanced_bind<new_story>();
+    mycastoro.advanced_bind<ping>();
  
     bot.on_log(dpp::utility::cout_logger());
 
