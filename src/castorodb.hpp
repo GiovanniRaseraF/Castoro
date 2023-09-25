@@ -46,6 +46,25 @@ class castorodb {
 
         return ret;
     }
+
+    // TODO: @MancioLollo: documentation
+    /*
+    */
+    static pqxx::result list_bros_raw(){
+        std::string con_string = 
+        " user="        + user +
+        " password="    + password +
+        " host="        + hostaddr +
+        " port=5432 "   + 
+        " dbname="      + dbname;
+
+        pqxx::connection c{con_string};
+        pqxx::work txn{c};
+
+        auto ret = txn.exec("select * from castorodb.bro;");
+
+        return ret;
+    }
 };
 
 std::string castorodb::dbname   {"postgres"};

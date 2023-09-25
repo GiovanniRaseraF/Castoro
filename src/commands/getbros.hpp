@@ -22,10 +22,16 @@ struct getbros {
 
     // func
     static void on_event(cluster &bot, slash_command &event){
-        std::vector<std::string> bros = castorodb::list_bros();
+        pqxx::result bros_pqres = castorodb::list_bros_raw();
         std::string tosend{};
 
-        for(auto bro : bros) tosend += bro + "\n";
+        for(auto bro : bros_pqres){
+            std::string n = (bro["nome"].as<std::string>());
+            std::string c = (bro["cognome"].as<std::string>());
+            std::string ls = (bro["lista_soprannomi"].as<std::string>());
+
+            tosend += n + " " + c + " [" + ls + "]\n";
+        }
 
         event.reply(tosend);
     }
@@ -36,5 +42,5 @@ struct getbros {
 };
 
 // init
-std::string getbros::command{"getbros"};
+std::string getbros::command{"bros"};
 std::string getbros::description{"Stampa la lista dei bro"};
